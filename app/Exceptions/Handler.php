@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-use App\Services\Core\Exception\ApiException;
+use App\Services\Core\Exception\ApiHandlerException;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -47,8 +47,7 @@ class Handler extends ExceptionHandler
     {
         $middlewares = \Route::current()->action['middleware'];
         if( (is_array($middlewares) AND in_array('api', $middlewares)) OR $middlewares == 'api' )
-        //if ($request->expectsJson())
-            return ApiException::show($request, $exception);
+            return ApiHandlerException::show($request, $exception);
 
         return parent::render($request, $exception);
     }
