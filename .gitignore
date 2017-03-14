@@ -4,6 +4,9 @@
 /storage/*.key
 /vendor
 /.idea
+_ide_helper.php
 Homestead.json
 Homestead.yaml
 .env
+app/SwaggerEnv.php
+public/api-docs/swagger.json

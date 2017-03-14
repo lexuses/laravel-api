@@ -95,9 +95,11 @@ class ResponseManager
 
     public function send()
     {
+        $content = [];
+
         if($this->type == 'data')
             $content = $this->resource;
-        else
+        elseif($this->resource)
             $content = $this->doTransform();
 
         if( ! empty($this->meta))

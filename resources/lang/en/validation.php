@@ -88,6 +88,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Custom Validation Rules Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify custom validation messages for custom rules.
+    |
+    */
+    'not_exists'           => 'The :attribute field does not present.',
+
+    /*
+    |--------------------------------------------------------------------------
     | Custom Validation Language Lines
     |--------------------------------------------------------------------------
     |
