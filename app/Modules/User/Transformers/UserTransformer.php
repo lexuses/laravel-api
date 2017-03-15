@@ -2,7 +2,7 @@
 
 namespace App\Modules\User\Transformers;
 
-use App\Modules\User\Modules\User;
+use App\Modules\User\Models\User;
 use App\Services\Core\Transformer\Transformer;
 
 class UserTransformer extends Transformer

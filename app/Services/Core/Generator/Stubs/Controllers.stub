@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Modules\{{module_name}}\Controllers;
+
+use App\Services\Core\Controller\ApiController;
+use App\Modules\{{module_name}}\Requests\{{file_name}}Request;
+use App\Modules\{{module_name}}\Tasks\{{file_name}}Task;
+
+class {{file_name}}Controller extends ApiController
+{
+    public function handle({{file_name}}Request $request, {{file_name}}Task $task)
+    {
+
+        return $this->response
+                    //->collection($users)
+                    //->transform(new UserTransformer())
+                    //->addMeta(['count' => User::count()])
+                    ->send();
+    }
+}

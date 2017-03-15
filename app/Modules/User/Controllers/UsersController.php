@@ -4,7 +4,7 @@ namespace App\Modules\User\Controllers;
 
 use App\Modules\User\Exceptions\UserNotFoundException;
 use App\Services\Core\Controller\ApiController;
-use App\Modules\User\Modules\User;
+use App\Modules\User\Models\User;
 use App\Modules\User\Requests\UsersRequest;
 use App\Modules\User\Tasks\UsersTask;
 use App\Modules\User\Transformers\UserTransformer;

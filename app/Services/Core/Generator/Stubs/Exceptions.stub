@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Modules\{{module_name}}\Exceptions;
+
+use App\Services\Core\Exception\ApiException;
+use Symfony\Component\HttpFoundation\Response;
+
+/**
+ * Class {{file_name}}Exception.
+ */
+class {{file_name}}Exception extends ApiException
+{
+
+    public $httpStatusCode = Response::HTTP_NOT_FOUND;
+
+    public $message = 'Failed: not found';
+}

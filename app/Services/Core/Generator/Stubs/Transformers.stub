@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Modules\{{module_name}}\Transformers;
+
+use App\Services\Core\Transformer\Transformer;
+
+/**
+ * Class {{file_name}}Transformer.
+ */
+class {{file_name}}Transformer extends Transformer
+{
+    public function transform($model)
+    {
+		/**
+		* @SWG\Definition(
+		* definition="{{model_name}}",
+        {{properties_docs}}
+		* @SWG\Property(property="exampleDefinition", type="array", @SWG\Items(ref="#/definitions/Definition")),
+		* )
+		*/
+        return [
+{{properties}}
+        ];
+    }
+}

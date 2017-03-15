@@ -3,6 +3,13 @@
 namespace App\Console;
 
 use App\Console\Commands\ApiDocsGenerate;
+use App\Console\Commands\GenerateController;
+use App\Console\Commands\GenerateException;
+use App\Console\Commands\GenerateModel;
+use App\Console\Commands\GenerateRequest;
+use App\Console\Commands\GenerateTask;
+use App\Console\Commands\GenerateTransformer;
+use App\Console\Commands\MakeModule;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,6 +22,13 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         ApiDocsGenerate::class,
+        MakeModule::class,
+        GenerateController::class,
+        GenerateException::class,
+        GenerateRequest::class,
+        GenerateTask::class,
+        GenerateModel::class,
+        GenerateTransformer::class,
     ];
 
     /**

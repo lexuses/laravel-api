@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Modules\{{module_name}}\Tasks;
+
+use App\Services\Core\Task\Task;
+
+class {{file_name}}Task extends Task
+{
+    public function run()
+    {
+        //
+    }
+}

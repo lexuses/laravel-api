@@ -1,11 +1,15 @@
 <?php
 
-namespace App\Modules\User\Modules;
+namespace App\Modules\User\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 
+/**
+ * Class User
+ * @package App\Modules\User\Modules
+ */
 class User extends Authenticatable
 {
     use Notifiable, HasApiTokens;

@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Modules\{{module_name}}\Models;
+
+use App\Services\Core\Model\Model;
+
+/**
+ * Class User
+ * @package App\Modules\{{module_name}}\Models
+{{properties}}
+ */
+class {{file_name}} extends Model
+{
+
+    {{table}}
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+{{fillable}}
+    ];
+
+    protected $dates = [
+{{dates}}
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [];
+}
