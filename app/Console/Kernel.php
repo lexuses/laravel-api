@@ -3,6 +3,13 @@
 namespace App\Console;
 
 use App\Console\Commands\ApiDocsGenerate;
+use App\Console\Commands\CronTest;
+use App\Console\Commands\DbClear;
+use App\Console\Commands\DbDumps;
+use App\Console\Commands\DbExport;
+use App\Console\Commands\DbImport;
+use App\Console\Commands\DbTables;
+use App\Console\Commands\DbTruncate;
 use App\Console\Commands\GenerateController;
 use App\Console\Commands\GenerateException;
 use App\Console\Commands\GenerateModel;
@@ -29,6 +36,13 @@ class Kernel extends ConsoleKernel
         GenerateTask::class,
         GenerateModel::class,
         GenerateTransformer::class,
+        CronTest::class,
+        DbClear::class,
+        DbDumps::class,
+        DbExport::class,
+        DbImport::class,
+        DbTables::class,
+        DbTruncate::class,
     ];
 
     /**
