@@ -59,6 +59,8 @@ class GenerateController extends Command
             'name' => $name,
         ]);
 
+        $this->generator->routeForController($name);
+
         return true;
     }
 }

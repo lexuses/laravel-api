@@ -2,15 +2,17 @@
 
 namespace App\Services\Core\Generator;
 
+use File;
 use Storage;
 
 class Generator
 {
     private $path;
     private $moduleDirs = [
-        'Controllers', 'Exceptions', 'Models', 'Requests', 'Tasks', 'Transformers'
+        'Controllers', 'Exceptions', 'Models', 'Requests', 'Routes', 'Tasks', 'Transformers'
     ];
     private $module;
+    private $routeApiFile = 'routes/api.php';
 
     function __construct()
     {
@@ -31,7 +33,7 @@ class Generator
         $folderPath = $this->makeDir($folderName);
         $filePath = $folderPath . '/' . $fileName . '.php';
         if( ! is_file($filePath))
-            \File::put($filePath, $contents);
+            File::put($filePath, $contents);
     }
 
     private function getContentsByType($type)
@@ -81,8 +83,35 @@ class Generator
         {
             mkdir($this->path . '/' . $module . '/' . $dir);
         }
+        $this->insertRoute($module);
+        $this->updateRoute($module);
 
         return $module;
+    }
+
+    private function insertRoute($module)
+    {
+        $this->makeFile($module . '/Routes', 'routes', "<?php\n");
+    }
+
+    private function updateRoute($module)
+    {
+        $apiRoute = "\n\n" . 'Route::namespace(\'Modules\{{Module}}\Controllers\')->group(RoutePath::get(\'{{Module}}\'));';
+        $newModuleRoute = str_replace('{{Module}}', $module, $apiRoute);
+
+        File::append(base_path($this->routeApiFile), $newModuleRoute);
+    }
+
+    public function routeForController($name)
+    {
+        $routeStr = "\n\n" . 'Route::get(\'/{{Route}}\', \'{{Name}}Controller\');';
+        $route = str_replace(
+            ['{{Route}}', '{{Name}}'],
+            [strtolower($name), $name],
+            $routeStr
+        );
+
+        File::append($this->path . '/Routes/routes.php', $route);
     }
 
     public function modelData($table)

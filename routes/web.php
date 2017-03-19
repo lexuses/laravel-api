@@ -13,15 +13,11 @@
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware(['auth']);
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-
 Route::group(['namespace' => 'Http\Controllers'], function () {
 
     Auth::routes();
+
+    Route::get('/', 'WelcomeController');
 
     Route::get('/home', 'HomeController@index');
 });

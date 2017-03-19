@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Services\Core\Route\RoutePath;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,47 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::namespace('Modules\User\Controllers')->group(RoutePath::get('User'));
 
-Route::group(['namespace' => 'Modules\User\Controllers'], function () {
-
-    Route::group(['namespace' => 'Auth'], function () {
-        Route::post('/login', 'UserLoginController');
-    });
-
-    /**
-     * @SWG\Get(
-     *     path="/users",
-     *     summary="Get all users",
-     *     tags={"User"},
-     *     description="Get all users",
-     *     operationId="UserGet",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter(
-     *         name="limit",
-     *         in="query",
-     *         description="Limit list of users",
-     *         required=true,
-     *         type="integer",
-     *     ),
-     *     @SWG\Response(
-     *         response=200,
-     *         description="successful",
-     *     ),
-     *     @SWG\Response(
-     *         response="422",
-     *         description="Invalid Input.",
-     *     ),
-     *     security={
-     *         {
-     *             "JWT": {}
-     *         }
-     *     }
-     * )
-     */
-    Route::get('/users', 'UsersController')->middleware(['auth:api']);
-
-});
+Route::namespace('Modules\Welcome\Controllers')->group(RoutePath::get('Welcome'));

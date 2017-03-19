@@ -8,7 +8,7 @@ use App\Modules\{{module_name}}\Tasks\{{file_name}}Task;
 
 class {{file_name}}Controller extends ApiController
 {
-    public function handle({{file_name}}Request $request, {{file_name}}Task $task)
+    public function __invoke({{file_name}}Request $request, {{file_name}}Task $task)
     {
 
         return $this->response
