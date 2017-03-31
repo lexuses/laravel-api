@@ -45,8 +45,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        $middlewares = \Route::current()->action['middleware'];
-        if( (is_array($middlewares) AND in_array('api', $middlewares)) OR $middlewares == 'api' )
+        if(isset($request->segments()[0]) AND $request->segments()[0] == 'api')
             return ApiHandlerException::show($request, $exception);
 
         return parent::render($request, $exception);
