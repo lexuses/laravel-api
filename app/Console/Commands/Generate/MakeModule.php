@@ -1,26 +1,25 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Generate;
 
 use App\Services\Core\Generator\Generator;
 use Illuminate\Console\Command;
 
-class GenerateException extends Command
+class MakeModule extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'g:e {module : Module name} {name : Exception name}';
+    protected $signature = 'make:module {name : Module name}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate exception in module';
-
+    protected $description = 'Generate module folders';
     private $generator;
 
     /**
@@ -41,13 +40,11 @@ class GenerateException extends Command
      */
     public function handle()
     {
-        $module = $this->argument('module');
         $name = $this->argument('name');
 
-        $this->generator->moduleExist($module);
-        $name = $this->generator->generateByType('Exceptions', $name);
+        $module = $this->generator->makeModule($name);
 
-        $this->info('"'. $name . '" generate successfully');
+        $this->info('Module "'. $module . '" generate successfully');
 
         return true;
     }

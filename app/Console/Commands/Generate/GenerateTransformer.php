@@ -1,26 +1,31 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Generate;
 
 use App\Services\Core\Generator\Generator;
 use App\Services\Core\Generator\GeneratorDataFromDB;
 use Illuminate\Console\Command;
 
-class GenerateModel extends Command
+class GenerateTransformer extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'g:m {module : Module name} {name : Model name} {--table= : Table of model}';
+    protected $signature = 'g:tr 
+                            {module : Module name} 
+                            {name : Transformer name} 
+                            {--table= : Table of model}
+                            {--model= : Model name}
+                            ';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate model in module';
+    protected $description = 'Generate transformer in module';
 
     private $generator;
 
@@ -46,10 +51,8 @@ class GenerateModel extends Command
         $name = $this->argument('name');
 
         $data = [
-            'table' => '',
-            'fillable' => '',
-            'dates' => '',
             'properties' => '',
+            'properties_docs' => '',
         ];
 
         $table = $this->option('table');
@@ -58,24 +61,24 @@ class GenerateModel extends Command
             if( ! GeneratorDataFromDB::tableExist($table))
                 dd('Table does not exists!');
 
-            $data = $this->generator->modelData($table);
+            $data = $this->generator->transformerData($table);
+        }
+
+        $modelNamespace = $this->option('model');
+        if($modelNamespace)
+        {
+            if( ! class_exists($modelNamespace))
+                dd('Model class does not exists!');
+
+            $model = new $modelNamespace;
+            $data = $this->generator->transformerData($model->getTable());
+            $data['model_name'] = class_basename($model);
         }
 
         $this->generator->moduleExist($module);
-        $name = $this->generator->generateByType('Models', $name, $data);
+        $name = $this->generator->generateByType('Transformers', $name, $data);
 
         $this->info('"'. $name . '" generate successfully');
-
-        $modelNamespace = 'App\Modules\\' . $module . '\Models\\' . $name;
-
-        if ( ! class_exists($modelNamespace))
-            dd('Model does not exists!');
-
-        $this->call('g:tr', [
-            'module' => $module,
-            'name' => $name,
-            '--model' => $modelNamespace
-        ]);
 
         return true;
     }

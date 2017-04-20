@@ -4,19 +4,19 @@ namespace App\Console;
 
 use App\Console\Commands\ApiDocsGenerate;
 use App\Console\Commands\CronTest;
-use App\Console\Commands\DbClear;
-use App\Console\Commands\DbDumps;
-use App\Console\Commands\DbExport;
-use App\Console\Commands\DbImport;
-use App\Console\Commands\DbTables;
-use App\Console\Commands\DbTruncate;
-use App\Console\Commands\GenerateController;
-use App\Console\Commands\GenerateException;
-use App\Console\Commands\GenerateModel;
-use App\Console\Commands\GenerateRequest;
-use App\Console\Commands\GenerateTask;
-use App\Console\Commands\GenerateTransformer;
-use App\Console\Commands\MakeModule;
+use App\Console\Commands\Db\DbClear;
+use App\Console\Commands\Db\DbDumps;
+use App\Console\Commands\Db\DbExport;
+use App\Console\Commands\Db\DbImport;
+use App\Console\Commands\Db\DbTables;
+use App\Console\Commands\Db\DbTruncate;
+use App\Console\Commands\Generate\GenerateController;
+use App\Console\Commands\Generate\GenerateException;
+use App\Console\Commands\Generate\GenerateModel;
+use App\Console\Commands\Generate\GenerateRequest;
+use App\Console\Commands\Generate\GenerateTask;
+use App\Console\Commands\Generate\GenerateTransformer;
+use App\Console\Commands\Generate\MakeModule;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -29,6 +29,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         ApiDocsGenerate::class,
+        CronTest::class,
+
         MakeModule::class,
         GenerateController::class,
         GenerateException::class,
@@ -36,7 +38,7 @@ class Kernel extends ConsoleKernel
         GenerateTask::class,
         GenerateModel::class,
         GenerateTransformer::class,
-        CronTest::class,
+
         DbClear::class,
         DbDumps::class,
         DbExport::class,

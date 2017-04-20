@@ -1,28 +1,29 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Db;
 
 use DB;
 use Illuminate\Console\Command;
 
-class DbTruncate extends Command
+class DbClear extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'db:truncate';
+    protected $signature = 'db:clear';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Truncate all tables';
+    protected $description = 'Delete all tables';
 
     /**
      * Create a new command instance.
+     *
      */
     public function __construct()
     {
@@ -41,14 +42,11 @@ class DbTruncate extends Command
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         foreach ($tables as $table)
         {
-            if($table == 'migrations')
-                continue;
-
-            DB::table($table)->truncate();
+            DB::statement('DROP TABLE IF EXISTS '.$table);
         }
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-        $this->info('All tables was truncated');
+        $this->info('All tables was deleted');
     }
 
     private function getAllTables()

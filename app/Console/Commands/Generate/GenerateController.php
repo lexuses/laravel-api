@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Generate;
 
 use App\Services\Core\Generator\Generator;
 use Illuminate\Console\Command;
 
-class GenerateRequest extends Command
+class GenerateController extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'g:r {module : Module name} {name : Request name}';
+    protected $signature = 'g:c {module : Module name} {name : Controller name}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate request in module';
+    protected $description = 'Generate controller in module';
 
     private $generator;
 
@@ -45,9 +45,21 @@ class GenerateRequest extends Command
         $name = $this->argument('name');
 
         $this->generator->moduleExist($module);
-        $name = $this->generator->generateByType('Requests', $name);
+        $fullName = $this->generator->generateByType('Controllers', $name);
 
-        $this->info('"'. $name . '" generate successfully');
+        $this->info('"'. $fullName . '" generate successfully');
+
+        $this->call('g:r', [
+            'module' => $module,
+            'name' => $name,
+        ]);
+
+        $this->call('g:t', [
+            'module' => $module,
+            'name' => $name,
+        ]);
+
+        $this->generator->routeForController($name);
 
         return true;
     }
