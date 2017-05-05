@@ -5,7 +5,7 @@ namespace App\Modules\{{module_name}}\Models;
 use App\Services\Core\Model\Model;
 
 /**
- * Class User
+ * Class {{file_name}}
  * @package App\Modules\{{module_name}}\Models
 {{properties}}
  */
