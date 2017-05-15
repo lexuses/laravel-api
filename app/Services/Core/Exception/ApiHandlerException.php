@@ -30,6 +30,6 @@ class ApiHandlerException
                 'trace' => $exception->getTraceAsString(),
             ];
 
-        return response()->json($data);
+        return response()->json($data, $exception->httpStatusCode);
     }
 }
