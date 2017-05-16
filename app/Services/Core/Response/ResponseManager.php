@@ -35,6 +35,15 @@ class ResponseManager
 
         $fractal = new FractalManager();
 
+        if (isset($_GET['include']))
+        {
+            $fractal->parseIncludes($_GET['include']);
+        }
+        if (isset($_GET['exclude']))
+        {
+            $fractal->parseExcludes($_GET['exclude']);
+        }
+
         if($this->type == 'collection')
             $resource = new FractalCollection($this->resource, $this->transformer);
         elseif($this->type == 'item')
