@@ -5,7 +5,7 @@ namespace App\Modules\User\Requests\Auth;
 use App\Services\Core\Request\Request;
 
 /**
- * @property mixed username
+ * @property mixed email
  * @property mixed password
  */
 class UserLoginRequest extends Request
@@ -13,7 +13,7 @@ class UserLoginRequest extends Request
     public function rules()
     {
         return [
-            'username' => 'required|email',
+            'email' => 'required|email',
             'password' => 'required',
         ];
     }
