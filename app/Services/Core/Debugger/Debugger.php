@@ -62,6 +62,12 @@ class Debugger {
      */
     private function logQuery($query, $attributes, $time)
     {
+        foreach ($attributes as $k => $attr)
+        {
+            if($attr instanceof \DateTime)
+                $attributes[$k] = date_format($attr, 'Y-m-d H:i:s');
+        }
+
         $query = vsprintf(str_replace(['%', '?'], ['%%', "'%s'"], $query), $attributes) . ';';
 
         $this->queries->push([
