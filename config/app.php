@@ -179,12 +179,14 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ValidationRulesProvider::class,
         App\Providers\DebuggerProvider::class,
+        App\Providers\ModelFactoryProvider::class, //https://blog.jerguslejko.com/post/refactoring-series-model-factory-helpers
 
         /*
          * Third party app
          */
         Vinkla\Hashids\HashidsServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+
     ],
 
     /*
