@@ -13,7 +13,7 @@ class UserLoginController extends ApiController
     public function __invoke(UserLoginRequest $validation, Request $request)
     {
         $request->request->add([
-            'username' => $validation->username,
+            'username' => $validation->email,
             'password' => $validation->password,
             'grant_type' => 'password',
             'client_id' => config('auth_client.client_id'),
