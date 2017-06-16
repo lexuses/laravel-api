@@ -17,6 +17,8 @@ class ResponseManager
     private $resource;
     private $type;
     private $meta = [];
+    private $include = [];
+    private $exclude = [];
 
     public function transform($transformer)
     {
@@ -24,6 +26,20 @@ class ResponseManager
             throw new ErrorException('Object is not a transformer');
 
         $this->transformer = $transformer;
+
+        return $this;
+    }
+
+    public function include(Array $include)
+    {
+        $this->include = $include;
+
+        return $this;
+    }
+
+    public function exclude(Array $exclude)
+    {
+        $this->exclude = $exclude;
 
         return $this;
     }
@@ -42,6 +58,16 @@ class ResponseManager
         if (isset($_GET['exclude']))
         {
             $fractal->parseExcludes($_GET['exclude']);
+        }
+        if( ! empty($this->include))
+        {
+            foreach ($this->include as $item)
+                $fractal->parseIncludes($item);
+        }
+        if( ! empty($this->exclude))
+        {
+            foreach ($this->exclude as $item)
+                $fractal->parseExcludes($item);
         }
 
         if($this->type == 'collection')
