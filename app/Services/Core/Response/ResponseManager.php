@@ -4,7 +4,8 @@ namespace App\Services\Core\Response;
 
 use App\Services\Core\Transformer\Transformer;
 use ErrorException;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Collection;
 use League\Fractal\Manager as FractalManager;
 use League\Fractal\Resource\Collection as FractalCollection;
 use League\Fractal\Resource\Item as FractalItem;
@@ -82,7 +83,7 @@ class ResponseManager
     {
         $this->type = 'collection';
 
-        if( ! $collection instanceof Collection)
+        if( ! $collection instanceof EloquentCollection AND ! $collection instanceof Collection)
             throw new ErrorException('Object is not a collection');
 
         $this->resource = $collection;
@@ -102,7 +103,7 @@ class ResponseManager
     {
         $this->type = 'data';
 
-        if($data instanceof Collection)
+        if($data instanceof EloquentCollection OR $data instanceof Collection)
             $this->resource = $data->toArray();
         elseif (is_array($data))
             $this->resource = $data;
