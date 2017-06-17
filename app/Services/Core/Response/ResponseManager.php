@@ -122,7 +122,8 @@ class ResponseManager
     public function addMeta($key, $value = null)
     {
         if(is_array($key))
-            $this->meta[key($key)] = $key[key($key)];
+            foreach($key as $name => $value)
+                $this->meta[$name] = $value;
         else
             $this->meta[$key] = $value;
 
