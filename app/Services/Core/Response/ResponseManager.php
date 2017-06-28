@@ -62,13 +62,11 @@ class ResponseManager
         }
         if( ! empty($this->include))
         {
-            foreach ($this->include as $item)
-                $fractal->parseIncludes($item);
+            $fractal->parseIncludes($this->include);
         }
         if( ! empty($this->exclude))
         {
-            foreach ($this->exclude as $item)
-                $fractal->parseExcludes($item);
+            $fractal->parseExcludes($this->exclude);
         }
 
         if($this->type == 'collection')
