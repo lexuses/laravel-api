@@ -179,7 +179,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ValidationRulesProvider::class,
         App\Providers\DebuggerProvider::class,
-        App\Providers\ModelFactoryProvider::class, //https://blog.jerguslejko.com/post/refactoring-series-model-factory-helpers
+        //App\Providers\ModelFactoryProvider::class, //https://blog.jerguslejko.com/post/refactoring-series-model-factory-helpers !need update!
+        App\Providers\CollectionMacroServiceProvider::class,
 
         /*
          * Third party app
