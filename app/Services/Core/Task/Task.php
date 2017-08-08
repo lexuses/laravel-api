@@ -3,6 +3,7 @@
 namespace App\Services\Core\Task;
 
 use Cache;
+use Closure;
 
 /**
  * Class Task
@@ -12,26 +13,31 @@ use Cache;
 abstract class Task
 {
     public $cacheTime = 1;
-    private $cacheName;
-    public $runFunction = 'run';
-
-    public function __construct()
-    {
-        $this->cacheName = class_basename($this);
-    }
+    public $cacheName;
+    public $runFunctionName = 'run';
+    public $cacheFunctionName = 'cache';
 
     public function __call($name, $arguments)
     {
-        if($name == 'cache')
+        if($name == $this->cacheFunctionName)
             return call_user_func([$this, 'checkCache'], $arguments);
     }
 
     public function checkCache()
     {
         $args = func_get_args()[0];
-        return Cache::remember($this->cacheName, $this->cacheTime, function () use ($args) {
-            return call_user_func_array([$this, $this->runFunction], $args);
+        $cacheName = $this->cacheName ?: $this->generateCacheName($args);
+
+        return Cache::remember($cacheName, $this->cacheTime, function () use ($args) {
+            return call_user_func_array([$this, $this->runFunctionName], $args);
         });
+    }
+
+    public function cacheName($name)
+    {
+        $this->cacheName = $name;
+
+        return $this;
     }
 
     public function cacheTime($time)
@@ -46,6 +52,30 @@ abstract class Task
         Cache::forget($this->cacheName);
 
         return $this;
+    }
+
+    private function generateCacheName($args)
+    {
+        $name[] = class_basename($this);
+
+        if( ! empty($args))
+        {
+            foreach ($args as $arg)
+            {
+                if($arg instanceof Closure)
+                    continue;
+
+                if(is_array($arg) OR is_object($arg))
+                {
+                    dd(md5(serialize($arg)));
+                    $name[] = md5(serialize($arg));
+                }
+                else
+                    $name[] = (string) md5($arg);
+            }
+        }
+
+        return implode('_', $name);
     }
 
 }

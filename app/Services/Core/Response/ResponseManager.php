@@ -128,6 +128,21 @@ class ResponseManager
         return $this;
     }
 
+    public function hasMore($limit = 30)
+    {
+        $more = true;
+
+        if( ! $this->resource->count() OR $this->resource->count() <= ($limit - 1))
+            $more = false;
+
+        if($this->resource->count() >= $limit)
+            $this->resource->pop();
+
+        $this->addMeta('has_more', $more);
+
+        return $this;
+    }
+
     public function send()
     {
         $content = [];
@@ -141,5 +156,12 @@ class ResponseManager
             $content[$this->metaName] = $this->meta;
 
         return response()->json($content);
+    }
+
+    public function done()
+    {
+        return response()->json([
+            'message' => 'Done'
+        ]);
     }
 }

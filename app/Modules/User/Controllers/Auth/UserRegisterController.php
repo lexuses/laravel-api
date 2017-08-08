@@ -11,10 +11,9 @@ class UserRegisterController extends ApiController
 {
     public function __invoke(
         UserRegisterRequest $validation,
-        Request $request,
         UserRegisterTask $task
     )
     {
-        return $task->run($validation, $request);
+        return $task->run($validation);
     }
 }

@@ -187,6 +187,7 @@ return [
          */
         Vinkla\Hashids\HashidsServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
 
     ],
 
@@ -241,6 +242,7 @@ return [
          * Third Party App
          */
         'Hashids' => Vinkla\Hashids\Facades\Hashids::class,
+        'Entrust' => Zizaco\Entrust\EntrustFacade::class,
 
     ],
 

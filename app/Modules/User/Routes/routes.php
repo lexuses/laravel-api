@@ -1,9 +1,12 @@
 <?php
 
-Route::namespace('Auth')
-    ->group(function () {
-        Route::post('/login', 'UserLoginController');
-    });
+Route::namespace('Auth')->group(function () {
+
+    Route::post('login', 'UserLoginController');
+    Route::post('logout', 'UserLogoutController');
+    Route::post('register', 'UserRegisterController');
+
+});
 
 /**
  * @SWG\Get(
@@ -36,8 +39,8 @@ Route::namespace('Auth')
  *     }
  * )
  */
-Route::get('/users', 'UsersController')
+Route::get('users', 'UsersController')
     ->middleware(['auth:api']);
 
-Route::get('/user', 'UserGetController')
+Route::get('user', 'UserGetController')
     ->middleware('auth:api');

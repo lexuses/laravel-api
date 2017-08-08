@@ -13,11 +13,12 @@ class UserRegisterTask extends Task
 {
     /**
      * @param $validation UserRegisterRequest
-     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function run($validation, Request $request)
+    public function run($validation)
     {
+        $request = request();
+
         event(new Registered($user = $this->create($validation->all())));
 
         //return $this->guard()->login($user);

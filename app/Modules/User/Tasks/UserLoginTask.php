@@ -15,11 +15,12 @@ class UserLoginTask extends Task
 
     /**
      * @param UserLoginRequest|UserRegisterRequest $validation
-     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function run($validation, Request $request)
+    public function run($validation)
     {
+        $request = request();
+
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
 

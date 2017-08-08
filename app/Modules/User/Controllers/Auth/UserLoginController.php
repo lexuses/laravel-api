@@ -11,10 +11,9 @@ class UserLoginController extends ApiController
 {
     public function __invoke(
         UserLoginRequest $validation,
-        Request $request,
         UserLoginTask $task
     )
     {
-        return $task->run($validation, $request);
+        return $task->run($validation);
     }
 }

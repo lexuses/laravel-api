@@ -6,6 +6,7 @@ use App\Services\Core\Exception\ApiHandlerException;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -45,6 +46,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if($exception instanceof NotFoundHttpException)
+            return $this->notFound($request, $exception);
+
+        if($exception instanceof AuthenticationException)
+            return $this->unauthenticated($request, $exception);
+
         if(isset($request->segments()[0]) AND $request->segments()[0] == 'api')
             return ApiHandlerException::show($request, $exception);
 
@@ -65,5 +72,14 @@ class Handler extends ExceptionHandler
         }
 
         return redirect()->guest(route('login'));
+    }
+
+    protected function notFound($request, $exception)
+    {
+        if ($request->expectsJson()) {
+            return response()->json(['error' => 'Route not found.'], 404);
+        }
+
+        return abort(404);
     }
 }
