@@ -132,10 +132,10 @@ class ResponseManager
     {
         $more = true;
 
-        if( ! $this->resource->count() OR $this->resource->count() <= ($limit - 1))
+        if( ! $this->resource->count() OR $this->resource->count() <= $limit)
             $more = false;
 
-        if($this->resource->count() >= $limit)
+        if($this->resource->count() > $limit)
             $this->resource->pop();
 
         $this->addMeta('has_more', $more);
